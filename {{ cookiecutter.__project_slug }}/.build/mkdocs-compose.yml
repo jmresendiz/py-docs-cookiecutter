@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mkdocs-serve:
+    image: {{ cookiecutter.__project_slug }}-mkdocs:latest
+    build:
+      context: .
+      dockerfile: mkdocs.Dockerfile
+    container_name: {{ cookiecutter.__project_slug }}-mkdocs-serve
+    user: "${UID:-1000}:${GID:-1000}"
+    working_dir: /docs
+    volumes:
+      - ../mkdocs:/docs:cached
+    ports:
+      - "8000:8000"
+    environment:
+      - LIVE_RELOAD_SUPPORT=true
+    command: mkdocs serve --dev-addr 0.0.0.0:8000
+    stdin_open: true
+    tty: true
+
+  mkdocs-build:
+    image: {{ cookiecutter.__project_slug }}-mkdocs:latest
+    build:
+      context: .
+      dockerfile: mkdocs.Dockerfile
+    container_name: {{ cookiecutter.__project_slug }}-mkdocs-build
+    user: "${UID:-1000}:${GID:-1000}"
+    working_dir: /docs
+    volumes:
+      - ../mkdocs:/docs:cached
+    command: mkdocs build
+

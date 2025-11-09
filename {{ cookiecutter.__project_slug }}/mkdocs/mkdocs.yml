@@ -1,0 +1,117 @@
+# MkDocs Configuration for {{ cookiecutter.project_name }}
+# This file configures the MkDocs documentation site with Material theme
+
+site_name: {{ cookiecutter.project_name }} Documentation
+site_description: {{ cookiecutter.project_short_description }}
+site_author: {{ cookiecutter.author_name }}
+
+# Repository information (optional - update with your repo URL)
+# repo_url: https://github.com/yourorg/{{ cookiecutter.__project_slug }}
+# repo_name: yourorg/{{ cookiecutter.__project_slug }}
+
+# Theme configuration - Using Material for MkDocs
+theme:
+  name: material
+  language: en
+  
+  # Color scheme
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  
+  # Features
+  features:
+    - navigation.instant      # Instant loading
+    - navigation.tracking     # Track URL in address bar
+    - navigation.tabs         # Top-level navigation tabs
+    - navigation.sections     # Section navigation
+    - navigation.expand       # Expand navigation by default
+    - navigation.top          # Back to top button
+    - search.suggest          # Search suggestions
+    - search.highlight        # Highlight search terms
+    - content.code.copy       # Copy button for code blocks
+    - content.tabs.link       # Link content tabs
+
+# Navigation structure
+# Define the structure of your documentation here
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting_started/installation.md
+      - Quick Start: getting_started/quickstart.md
+
+# Markdown extensions
+# These enhance the markdown capabilities
+markdown_extensions:
+  # Python Markdown extensions
+  - abbr                      # Abbreviations
+  - admonition                # Call-out blocks
+  - attr_list                 # Add HTML/CSS attributes to elements
+  - def_list                  # Definition lists
+  - footnotes                 # Footnotes
+  - meta                      # Meta-data
+  - md_in_html                # Markdown in HTML
+  - toc:
+      permalink: true         # Add permalink to headings
+      toc_depth: 3            # Table of contents depth
+  
+  # PyMdown Extensions
+  - pymdownx.arithmatex:      # LaTeX math
+      generic: true
+  - pymdownx.betterem:        # Better emphasis
+      smart_enable: all
+  - pymdownx.caret            # Superscript with ^
+  - pymdownx.mark             # Highlight with ==
+  - pymdownx.tilde            # Strikethrough with ~~
+  - pymdownx.details          # Collapsible blocks
+  - pymdownx.emoji:           # Emoji support
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:       # Syntax highlighting
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite     # Inline code highlighting
+  - pymdownx.keys             # Keyboard keys
+  - pymdownx.smartsymbols     # Smart symbols
+  - pymdownx.snippets         # Include external files
+  - pymdownx.superfences:     # Nested code blocks
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:          # Tabbed content
+      alternate_style: true
+  - pymdownx.tasklist:        # Task lists
+      custom_checkbox: true
+
+# Plugins
+plugins:
+  - search:                   # Search plugin
+      lang: en
+  # - tags                    # Uncomment to enable tags
+  # - git-revision-date-localised  # Uncomment to show last update dates
+
+# Extra configuration
+extra:
+  # Social links (optional - customize as needed)
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourorg
+
+# Copyright notice
+copyright: Copyright &copy; 2025 {{ cookiecutter.author_name }}
+

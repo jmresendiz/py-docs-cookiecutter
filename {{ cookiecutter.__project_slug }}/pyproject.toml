@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "{{ cookiecutter.__project_slug }}"
+version = "{{ cookiecutter.project_version }}"
+description = "{{ cookiecutter.project_short_description }}"
+authors = ["{{ cookiecutter.author_name }}"]
+license = "{{ cookiecutter.open_source_license }}"
+packages = [
+    { include = "{{ cookiecutter.__project_slug }}", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "{{ cookiecutter.python_version }}"
+click = "^8.1.7"
+inquirer = "^3.4.0"
+mkdocs = "^1.6.1"
+mkdocs-material = "^9.5.47"
+pymdown-extensions = "^10.12"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.3.0"
+
+[tool.poetry.scripts]
+py-docs = "{{ cookiecutter.__project_slug }}.cli:cli"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+####################
+# Semantic-release #
+####################
+
+[tool.semantic_release]
+version_toml = [
+    "pyproject.toml:tool.poetry.version",
+]
+branch = "main"
+changelog_file = "CHANGELOG.md"
+build_command = "pip install poetry"
+
+[tool.semantic_release.branches.main]
+match = "main"
+prerelease = false
+
+# [tool.semantic_release.branches.develop]
+# match = "develop"
+# prerelease = true
+# prerelease_token = "dev"
+
+# [tool.semantic_release.branches.staging]
+# match = "staging"
+# prerelease = true
+# prerelease_token = "rc"

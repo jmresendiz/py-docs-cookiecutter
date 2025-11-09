@@ -1,0 +1,100 @@
+repos:
+  # =============================================================================
+  # General pre-commit hooks (file format, syntax)
+  # =============================================================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+        exclude: mkdocs/mkdocs\.yml$  # Excluded: uses Python-specific YAML tags
+      - id: check-json
+      - id: check-added-large-files
+        exclude: "\\.(jpg|jpeg|png|gif|bmp|svg|ico|webp|tiff|tif|mp4|webm|mov|avi)$"
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: check-case-conflict
+
+  # =============================================================================
+  # HTML/CSS/JS quality and validation hooks
+  # =============================================================================
+  - repo: https://github.com/thibaudcolas/pre-commit-stylelint
+    rev: v16.25.0
+    hooks:
+      - id: stylelint
+        files: "\\.(css|scss|sass|less|vue)$"
+        args: ["--custom-syntax", "postcss-html"]
+        additional_dependencies:
+          - stylelint@^16.0.0
+          - stylelint-config-standard@^36.0.0
+          - postcss-html@^1.7.0
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+    rev: v1.1.2
+    hooks:
+      - id: htmlhint
+        files: "\\.html$"
+        additional_dependencies:
+          - htmlhint@^1.1.4
+
+  # =============================================================================
+  # Security hooks
+  # =============================================================================
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        name: detect-secrets
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.6
+    hooks:
+      - id: bandit
+        name: bandit-security-linter
+        entry: bandit
+        language: python
+        types: [python]
+        exclude: tests/
+
+  # =============================================================================
+  # Python code style and formatting hooks
+  # =============================================================================
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.13.3
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # Markdownlint: check only, no auto-fix
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint
+        files: "\\.(md|markdown|mdc)$"
+        exclude: CHANGELOG\.md$
+
+  # =============================================================================
+  # Python-specific hooks (type checking)
+  # =============================================================================
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.18.2
+    hooks:
+      - id: mypy
+        exclude: ^(test/|tests/|examples/)
+        additional_dependencies:
+          - types-requests==2.32.0.20240914
+
+  # =============================================================================
+  # Code quality and metrics hooks
+  # =============================================================================
+  - repo: https://github.com/econchick/interrogate
+    rev: 1.7.0
+    hooks:
+      - id: interrogate
+        args: ["--fail-under=0", "--whitelist-regex", ".*"]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.9.1
+    hooks:
+      - id: commitizen
+

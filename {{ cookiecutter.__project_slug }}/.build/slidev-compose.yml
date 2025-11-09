@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  slidev:
+    image: {{ cookiecutter.__project_slug }}-slidev:latest
+    build:
+      context: .
+      dockerfile: slidev.Dockerfile
+    container_name: {{ cookiecutter.__project_slug }}-slidev-dev
+    user: "${UID:-1000}:${GID:-1000}"
+    working_dir: /slidev/${PRESENTATION}
+    volumes:
+      - ../slides:/slidev:cached
+    ports:
+      - "3030:3030"
+    environment:
+      - NODE_ENV=development
+      - HOME=/tmp
+      - NPM_CONFIG_CACHE=/tmp/.npm
+    command: >
+      sh -c "
+        if [ ! -d node_modules ]; then
+          npm install
+        fi &&
+        npx slidev --host 0.0.0.0 --port 3030
+      "
+    stdin_open: true
+    tty: true
+
+  slidev-export:
+    image: {{ cookiecutter.__project_slug }}-slidev:latest
+    build:
+      context: .
+      dockerfile: slidev.Dockerfile
+    container_name: {{ cookiecutter.__project_slug }}-slidev-export
+    user: "${UID:-1000}:${GID:-1000}"
+    working_dir: /slidev/${PRESENTATION}
+    volumes:
+      - ../slides:/slidev:cached
+    environment:
+      - NODE_ENV=production
+      - HOME=/tmp
+      - NPM_CONFIG_CACHE=/tmp/.npm
+    command: >
+      sh -c "
+        if [ ! -d node_modules ]; then
+          npm install
+        fi &&
+        npx slidev export --output slides-export.pdf
+      "
+
