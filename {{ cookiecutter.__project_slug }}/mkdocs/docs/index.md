@@ -24,8 +24,7 @@ This is the main documentation site for {{ cookiecutter.project_name }}. Here yo
 ├── mkdocs/              # Documentation source
 │   ├── docs/           # Markdown documentation files
 │   └── mkdocs.yml      # MkDocs configuration
-├── slides/             # Slidev presentation projects
-│   └── example_presentation/
+├── slides/             # Slidev presentation projects (empty initially)
 ├── src/                # Python source code
 │   └── {{ cookiecutter.__project_slug }}/
 │       ├── __init__.py

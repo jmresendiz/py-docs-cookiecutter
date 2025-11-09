@@ -86,8 +86,7 @@ Presentations will be available at `http://localhost:3030`.
 ├── mkdocs/              # MkDocs documentation
 │   ├── docs/           # Markdown documentation files
 │   └── mkdocs.yml      # MkDocs configuration
-├── slides/             # Slidev presentations
-│   └── example_presentation/
+├── slides/             # Slidev presentations (create with: py-docs slidev create <name>)
 ├── src/                # Python source code
 │   └── {{ cookiecutter.__project_slug }}/
 │       ├── __init__.py
